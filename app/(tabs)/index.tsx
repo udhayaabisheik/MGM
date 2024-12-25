@@ -1,74 +1,153 @@
-import { Image, StyleSheet, Platform } from 'react-native';
+import React from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, SafeAreaView, StatusBar } from 'react-native';
 
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+const Index = () => {
+  const username = "John"; // Example username
+  const plan = "Premium Plan";
+  const status = "Active";
+  const sessionsUsed = 10;
+  const totalSessions = 20;
 
-export default function HomeScreen() {
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12'
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+    <SafeAreaView style={styles.safeArea}>
+      <StatusBar backgroundColor="#6A0DAD" barStyle="light-content" />
+      <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
+        {/* Greeting Section */}
+        <View style={styles.greetingSection}>
+          <Text style={styles.greetingText}>Hi {username}! 👋</Text>
+        </View>
+
+        {/* Subscription Card */}
+        <View style={styles.subscriptionCard}>
+          <Text style={styles.planName}>{plan}</Text>
+          <Text style={styles.planStatus}>{status}</Text>
+          <Text style={styles.usageText}>
+            {sessionsUsed} of {totalSessions} sessions used
+          </Text>
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity style={styles.button}>
+              <Text style={styles.buttonText}>Upgrade Plan</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.buttonOutline}>
+              <Text style={styles.buttonTextOutline}>View Details</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        {/* Promotions Section */}
+        <View style={styles.promotionsSection}>
+          <Text style={styles.promotionsTitle}>Exclusive Offers</Text>
+          <View style={styles.promotionCard}>
+            <Text style={styles.promotionText}>Get 20% off on yearly plans!</Text>
+          </View>
+          <View style={styles.promotionCard}>
+            <Text style={styles.promotionText}>Refer a friend and earn rewards!</Text>
+          </View>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
-}
+};
 
 const styles = StyleSheet.create({
-  titleContainer: {
+  safeArea: {
+    flex: 1,
+    backgroundColor: '#f8f8f8',
+  },
+  container: {
+    paddingHorizontal: 10,
+    paddingBottom: 20,
+    paddingTop: 20,
+    backgroundColor: '#f8f8f8',
+    flexGrow: 1,
+  },
+  greetingSection: {
+    padding: 20,
+    backgroundColor: '#6A0DAD',
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
+  },
+  greetingText: {
+    fontSize: 24,
+    color: '#fff',
+    fontWeight: 'bold',
+  },
+  subscriptionCard: {
+    backgroundColor: '#fff',
+    marginVertical: 20,
+    borderRadius: 10,
+    padding: 20,
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+    elevation: 3,
+  },
+  planName: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#333',
+  },
+  planStatus: {
+    fontSize: 16,
+    color: '#4CAF50',
+    marginVertical: 5,
+  },
+  usageText: {
+    fontSize: 14,
+    color: '#888',
+    marginVertical: 10,
+  },
+  buttonContainer: {
     flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
+    justifyContent: 'space-between',
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
+  button: {
+    backgroundColor: '#6A0DAD',
+    padding: 10,
+    borderRadius: 5,
+    flex: 1,
+    marginRight: 10,
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+  buttonText: {
+    color: '#fff',
+    textAlign: 'center',
+    fontWeight: 'bold',
+  },
+  buttonOutline: {
+    borderWidth: 1,
+    borderColor: '#6A0DAD',
+    padding: 10,
+    borderRadius: 5,
+    flex: 1,
+    marginLeft: 10,
+  },
+  buttonTextOutline: {
+    color: '#6A0DAD',
+    textAlign: 'center',
+    fontWeight: 'bold',
+  },
+  promotionsSection: {
+    marginTop: 20,
+  },
+  promotionsTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  promotionCard: {
+    backgroundColor: '#fff',
+    padding: 15,
+    borderRadius: 10,
+    marginBottom: 10,
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+    elevation: 2,
+  },
+  promotionText: {
+    fontSize: 14,
+    color: '#333',
   },
 });
+
+export default Index;

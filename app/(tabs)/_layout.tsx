@@ -1,43 +1,65 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
-import { Platform } from 'react-native';
-
-import { HapticTab } from '@/components/HapticTab';
-import { IconSymbol } from '@/components/ui/IconSymbol';
-import TabBarBackground from '@/components/ui/TabBarBackground';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
+import { Tabs } from "expo-router";
+import React from "react";
+import { Platform } from "react-native";
+import { HapticTab } from "@/components/HapticTab";
+import TabBarBackground from "@/components/ui/TabBarBackground";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
+  // Use the purple color directly
+  const purpleColor = "#6A1B9A"; // Purple color used in UserAccountScreen
 
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
+        tabBarActiveTintColor: purpleColor, // Purple color for active tabs
         tabBarButton: HapticTab,
         tabBarBackground: TabBarBackground,
         tabBarStyle: Platform.select({
           ios: {
-            // Use a transparent background on iOS to show the blur effect
-            position: 'absolute',
+            position: "absolute", // Transparent style for iOS
           },
-          default: {},
+          default: {
+            backgroundColor: "#EDE7F6", // Background color of the tab bar (light theme)
+          },
         }),
-      }}>
+        headerShown: false, // Remove headers for all tab screens
+      }}
+    >
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+          title: "Home",
+          tabBarIcon: ({ color }) => (
+            <Icon name="home" size={28} color={color || purpleColor} />
+          ),
         }}
       />
       <Tabs.Screen
-        name="explore"
+        name="DietChartsScreen"
         options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+          title: "Diet",
+          tabBarIcon: ({ color }) => (
+            <Icon name="food" size={28} color={color || purpleColor} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="SubscriptionScreen"
+        options={{
+          title: "Subscription",
+          tabBarIcon: ({ color }) => (
+            <Icon name="credit-card" size={28} color={color || purpleColor} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="user"
+        options={{
+          title: "Account",
+          tabBarIcon: ({ color }) => (
+            <Icon name="account" size={28} color={color || purpleColor} />
+          ),
         }}
       />
     </Tabs>
