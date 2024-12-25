@@ -45,14 +45,19 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="SubscriptionScreen"
+        name="PlanScreen"
         options={{
-          title: "Subscription",
+          title: "Plan",
           tabBarIcon: ({ color }) => (
-            <Icon name="credit-card" size={28} color={color || purpleColor} />
+            <Icon
+              name="card-account-details"
+              size={28}
+              color={color || purpleColor}
+            />
           ),
         }}
       />
+
       <Tabs.Screen
         name="user"
         options={{

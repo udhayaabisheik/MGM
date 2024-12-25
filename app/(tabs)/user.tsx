@@ -5,6 +5,7 @@ import {
   SafeAreaView,
   ScrollView,
   TouchableOpacity,
+  StatusBar,
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { ThemedText } from "@/components/ThemedText";
@@ -91,6 +92,8 @@ export default function UserAccountScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
+      <StatusBar backgroundColor="#6A0DAD" barStyle="light-content" />
+
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
         {/* Header Section */}
         <View style={styles.headerContainer}>
@@ -142,17 +145,11 @@ export default function UserAccountScreen() {
               Notifications
             </ThemedText>
           </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.optionButton}
-            onPress={handleSupport}
-          >
+          <TouchableOpacity style={styles.optionButton} onPress={handleSupport}>
             <Icon name="lifebuoy" size={24} color="#4A148C" />
             <ThemedText style={styles.optionButtonText}>Support</ThemedText>
           </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.optionButton}
-            onPress={handleLogout}
-          >
+          <TouchableOpacity style={styles.optionButton} onPress={handleLogout}>
             <Icon name="logout" size={24} color="#4A148C" />
             <ThemedText style={styles.optionButtonText}>Logout</ThemedText>
           </TouchableOpacity>
@@ -180,7 +177,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   titleContainer: {
-    backgroundColor: '#EDE7F6',
+    backgroundColor: "#EDE7F6",
   },
   titleText: {
     fontSize: 24,

@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, SafeAreaView, StatusBar } from 'react-native';
 
 const Index = () => {
-  const username = "John"; // Example username
+  const username = "Abisheik";
   const plan = "Premium Plan";
   const status = "Active";
   const sessionsUsed = 10;
@@ -14,7 +14,7 @@ const Index = () => {
       <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
         {/* Greeting Section */}
         <View style={styles.greetingSection}>
-          <Text style={styles.greetingText}>Hi {username}! 👋</Text>
+          <Text style={styles.greetingText}>Hi {username} 👋</Text>
         </View>
 
         {/* Subscription Card */}
@@ -52,13 +52,12 @@ const Index = () => {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: '#f8f8f8',
   },
   container: {
     paddingHorizontal: 10,
     paddingBottom: 20,
     paddingTop: 20,
-    backgroundColor: '#f8f8f8',
+    backgroundColor: '#EDE7F6',
     flexGrow: 1,
   },
   greetingSection: {
@@ -66,6 +65,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#6A0DAD',
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
+    marginLeft: -10,
+    marginRight: -10,
+    marginTop: 20,
+    paddingBottom: 30,
   },
   greetingText: {
     fontSize: 24,

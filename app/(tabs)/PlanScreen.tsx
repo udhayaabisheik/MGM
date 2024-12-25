@@ -13,14 +13,14 @@ import Animated from "react-native-reanimated";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 type RootStackParamList = {
-  SubscriptionScreen: undefined;
+  PlanScreen: undefined;
   PaymentScreen: undefined;
 };
 
-const SubscriptionScreen = () => {
+const PlanScreen = () => {
   const navigation =
     useNavigation<
-      NativeStackNavigationProp<RootStackParamList, "SubscriptionScreen">
+      NativeStackNavigationProp<RootStackParamList, "PlanScreen">
     >();
 
   return (
@@ -165,4 +165,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SubscriptionScreen;
+export default PlanScreen;
