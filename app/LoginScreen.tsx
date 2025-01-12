@@ -16,7 +16,7 @@ const LoginScreen = () => {
     if (email && password) {
       try {
         // Make the API request to verify user
-        const response = await axios.get("http://192.168.0.101:8080/users/login", {
+        const response = await axios.get("http://192.168.0.105:8080/users/login", {
           params: {
             email: email,
             password: password,

@@ -26,7 +26,7 @@ const DietChartsScreen = () => {
     // Fetch diet data from the API
     const fetchDietCharts = async () => {
       try {
-        const response = await fetch("http://192.168.0.101:8080/diets");
+        const response = await fetch("http://192.168.0.105:8080/diets");
         const data = await response.json();
         setDietCharts(data);
       } catch (error) {

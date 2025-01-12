@@ -29,7 +29,7 @@ const DietDetailsScreen = () => {
 
   // Fetch the diet chart details from the API based on the dietChartId
   useEffect(() => {
-    fetch(`http://192.168.0.101:8080/diets/${dietChartId}`)
+    fetch(`http://192.168.0.105:8080/diets/${dietChartId}`)
       .then((response) => response.json())
       .then((data) => {
         setDietChart(data);

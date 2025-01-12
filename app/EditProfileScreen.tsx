@@ -38,7 +38,7 @@ export default function EditProfileScreen() {
     const bodyData = new URLSearchParams(updatedData).toString();
   
     try {
-      const response = await fetch("http://192.168.0.101:8080/users/update", {
+      const response = await fetch("http://192.168.0.105:8080/users/update", {
         method: "POST", // Use POST method
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
