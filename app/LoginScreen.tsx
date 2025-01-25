@@ -1,10 +1,17 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  Alert,
+} from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { useRouter } from "expo-router";
 import { Link } from "expo-router";
 import axios from "axios"; // Import axios for API requests
-import AsyncStorage from '@react-native-async-storage/async-storage'; // Import AsyncStorage
+import AsyncStorage from "@react-native-async-storage/async-storage"; // Import AsyncStorage
 
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
@@ -16,21 +23,25 @@ const LoginScreen = () => {
     if (email && password) {
       try {
         // Make the API request to verify user
-        const response = await axios.get("http://192.168.0.105:8080/users/login", {
-          params: {
-            email: email,
-            password: password,
-          },
-        });
+        const response = await axios.get(
+          "http://192.168.0.102:8080/users/login",
+          {
+            params: {
+              email: email,
+              password: password,
+            },
+          }
+        );
 
         // Check if the response is successful
         if (response.status === 200 && response.data) {
           const { id, name, email, mobileno } = response.data; // Destructure to get only id, name, and email
 
-          Alert.alert("Login Successful", `Welcome, ${email}`);
-
           // Store user data in AsyncStorage
-          await AsyncStorage.setItem('userData', JSON.stringify({ id, name, email, mobileno }));
+          await AsyncStorage.setItem(
+            "userData",
+            JSON.stringify({ id, name, email, mobileno })
+          );
 
           // Send user data (id, name, email) to the next page (UserAccountScreen)
           router.push({
@@ -52,7 +63,12 @@ const LoginScreen = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Login Account</Text>
-      <Icon name="account-circle" size={100} color="#6A1B9A" style={styles.icon} />
+      <Icon
+        name="account-circle"
+        size={100}
+        color="#6A1B9A"
+        style={styles.icon}
+      />
       <View style={styles.inputContainer}>
         <Icon name="email-outline" size={20} color="#6A1B9A" />
         <TextInput

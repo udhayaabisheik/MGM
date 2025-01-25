@@ -10,7 +10,9 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { Link, useRouter } from "expo-router"; // Use useRouter from expo-router
-import DateTimePicker, { DateTimePickerEvent } from "@react-native-community/datetimepicker"; // Correct import for DateTimePickerEvent
+import DateTimePicker, {
+  DateTimePickerEvent,
+} from "@react-native-community/datetimepicker"; // Correct import for DateTimePickerEvent
 
 const SignUpScreen = () => {
   const [name, setName] = useState("");
@@ -41,7 +43,7 @@ const SignUpScreen = () => {
 
     try {
       // Send POST request to the API
-      const response = await fetch("http://192.168.0.105:8080/users", {
+      const response = await fetch("http://192.168.0.102:8080/users", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -64,7 +66,10 @@ const SignUpScreen = () => {
     }
   };
 
-  const handleDateChange = (event: DateTimePickerEvent, selectedDate?: Date) => {
+  const handleDateChange = (
+    event: DateTimePickerEvent,
+    selectedDate?: Date
+  ) => {
     setShowPicker(false); // Close the picker
     if (selectedDate) setDob(selectedDate); // Update DOB if a date is selected
   };
@@ -72,7 +77,12 @@ const SignUpScreen = () => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.title}>Create an Account</Text>
-      <Icon name="account-plus" size={100} color="#4CAF50" style={styles.icon} />
+      <Icon
+        name="account-plus"
+        size={100}
+        color="#4CAF50"
+        style={styles.icon}
+      />
       <View style={styles.inputContainer}>
         <Icon name="account-outline" size={20} color="#4CAF50" />
         <TextInput

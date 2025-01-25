@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { StyleSheet, TextInput, TouchableOpacity, View, Text, Alert } from "react-native";
+import {
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+  View,
+  Text,
+  Alert,
+} from "react-native";
 import { useRoute } from "@react-navigation/native";
 import { useRouter } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -26,26 +33,26 @@ export default function EditProfileScreen() {
       Alert.alert("Error", "Please fill in all fields.");
       return;
     }
-  
+
     const updatedData = {
       id,
       name: updatedName,
       email: updatedEmail,
       mobileno: updatedMobileno,
     };
-  
+
     // Construct the body for the POST request
     const bodyData = new URLSearchParams(updatedData).toString();
-  
+
     try {
-      const response = await fetch("http://192.168.0.105:8080/users/update", {
+      const response = await fetch("http://192.168.0.102:8080/users/update", {
         method: "POST", // Use POST method
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
         body: bodyData, // Sending data in the request body
       });
-  
+
       if (response.status === 200) {
         const updatedUser = await response.json();
 
@@ -54,7 +61,7 @@ export default function EditProfileScreen() {
 
         // Navigate with params instead of query
         router.push({
-          pathname: "/(tabs)/user",  // Ensure the path is correct for your project
+          pathname: "/(tabs)/user", // Ensure the path is correct for your project
           params: {
             id: updatedUser.id,
             name: updatedUser.name,

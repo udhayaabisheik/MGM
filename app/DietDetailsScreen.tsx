@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Text, StyleSheet, ScrollView, ActivityIndicator, SafeAreaView, StatusBar } from "react-native";
+import {
+  Text,
+  StyleSheet,
+  ScrollView,
+  ActivityIndicator,
+  SafeAreaView,
+  StatusBar,
+} from "react-native";
 import { useRoute } from "@react-navigation/native";
 import { RouteProp } from "@react-navigation/native";
 
@@ -10,7 +17,7 @@ type RootStackParamList = {
   };
 };
 
-type RouteProps = RouteProp<RootStackParamList, 'DietDetailsScreen'>;
+type RouteProps = RouteProp<RootStackParamList, "DietDetailsScreen">;
 
 interface DietChart {
   id: number;
@@ -29,7 +36,7 @@ const DietDetailsScreen = () => {
 
   // Fetch the diet chart details from the API based on the dietChartId
   useEffect(() => {
-    fetch(`http://192.168.0.105:8080/diets/${dietChartId}`)
+    fetch(`http://192.168.0.102:8080/diets/${dietChartId}`)
       .then((response) => response.json())
       .then((data) => {
         setDietChart(data);
@@ -66,7 +73,9 @@ const DietDetailsScreen = () => {
       <Text style={styles.title}>{dietChart.title}</Text>
       <Text style={styles.description}>{dietChart.description}</Text>
       <Text style={styles.mealsTitle}>Meals:</Text>
-      <Text style={styles.meal}>{dietChart.meals || "No meals available."}</Text>
+      <Text style={styles.meal}>
+        {dietChart.meals || "No meals available."}
+      </Text>
     </ScrollView>
   );
 };
