@@ -1,10 +1,24 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { StatusBar } from 'expo-status-bar';
-import { useEffect, useState } from 'react';
-import { useColorScheme } from '@/hooks/useColorScheme';
+import {
+  DarkTheme,
+  DefaultTheme,
+  ThemeProvider,
+} from "@react-navigation/native";
+import { useFonts } from "expo-font";
+import { Stack } from "expo-router";
+import * as SplashScreen from "expo-splash-screen";
+import { StatusBar } from "expo-status-bar";
+import { useEffect, useState } from "react";
+import { useColorScheme } from "@/hooks/useColorScheme";
+import { NotificationProvider } from "@/context/context/NotificationContext";
+import * as Notifications from "expo-notifications";
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: true,
+    shouldSetBadge: false,
+  }),
+});
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -13,7 +27,7 @@ export default function RootLayout() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const colorScheme = useColorScheme();
   const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
+    SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
   });
 
   useEffect(() => {
@@ -33,27 +47,29 @@ export default function RootLayout() {
   }
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack
-        screenOptions={{
-          headerShown: false, // Hide the header globally for all screens
-        }}
-      >
-        {isAuthenticated ? (
-          // The TabLayout will be mapped automatically under /tabs
-          <Stack.Screen name="(tabs)" />
-        ) : (
-          // Show login screen if not authenticated
-          <Stack.Screen name="LoginScreen" />
-        )}
-        <Stack.Screen name="SignUpScreen" />
-        <Stack.Screen name="SupportScreen" />
-        <Stack.Screen name="EditProfileScreen" />
-        <Stack.Screen name="NotificationScreen" />
-        <Stack.Screen name="DietDetailsScreen" />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+    <NotificationProvider>
+      <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+        <Stack
+          screenOptions={{
+            headerShown: false, // Hide the header globally for all screens
+          }}
+        >
+          {isAuthenticated ? (
+            // The TabLayout will be mapped automatically under /tabs
+            <Stack.Screen name="(tabs)" />
+          ) : (
+            // Show login screen if not authenticated
+            <Stack.Screen name="LoginScreen" />
+          )}
+          <Stack.Screen name="SignUpScreen" />
+          <Stack.Screen name="SupportScreen" />
+          <Stack.Screen name="EditProfileScreen" />
+          <Stack.Screen name="NotificationScreen" />
+          <Stack.Screen name="DietDetailsScreen" />
+          <Stack.Screen name="+not-found" />
+        </Stack>
+        <StatusBar style="auto" />
+      </ThemeProvider>
+    </NotificationProvider>
   );
 }

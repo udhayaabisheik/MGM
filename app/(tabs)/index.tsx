@@ -9,7 +9,7 @@ import {
   StatusBar,
 } from "react-native";
 
-const Index = () => {
+export default function HomeScreen() {
   const username = "Abisheik";
   const plan = "Premium Plan";
   const status = "Active";
@@ -62,7 +62,7 @@ const Index = () => {
       </ScrollView>
     </SafeAreaView>
   );
-};
+}
 
 const styles = StyleSheet.create({
   safeArea: {
@@ -167,5 +167,3 @@ const styles = StyleSheet.create({
     color: "#333",
   },
 });
-
-export default Index;
