@@ -9,14 +9,16 @@ export default function NotificationScreen() {
   const navigation = useNavigation(); // Access navigation prop
 
   const toggleSwitch = () => {
-    setIsEnabled(previousState => !previousState);
+    setIsEnabled((previousState) => !previousState);
   };
 
   useEffect(() => {
     // Load the notification setting from AsyncStorage when the component mounts
     const loadNotificationSetting = async () => {
       try {
-        const storedSetting = await AsyncStorage.getItem("notificationsEnabled");
+        const storedSetting = await AsyncStorage.getItem(
+          "notificationsEnabled"
+        );
         if (storedSetting !== null) {
           setIsEnabled(JSON.parse(storedSetting)); // Parse and set the state from AsyncStorage
         }
@@ -32,7 +34,10 @@ export default function NotificationScreen() {
   useEffect(() => {
     const saveNotificationSetting = async () => {
       try {
-        await AsyncStorage.setItem("notificationsEnabled", JSON.stringify(isEnabled));
+        await AsyncStorage.setItem(
+          "notificationsEnabled",
+          JSON.stringify(isEnabled)
+        );
       } catch (error) {
         console.error("Error saving notification setting:", error);
       }
@@ -49,11 +54,11 @@ export default function NotificationScreen() {
   return (
     <View style={styles.container}>
       {/* Back Arrow Icon */}
-      <Icon 
-        name="arrow-left" 
-        size={30} 
-        color="#4A148C" 
-        style={styles.backIcon} 
+      <Icon
+        name="arrow-left"
+        size={30}
+        color="#4A148C"
+        style={styles.backIcon}
         onPress={handleBack} // Trigger back navigation on press
       />
 

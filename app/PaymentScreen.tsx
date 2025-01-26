@@ -1,8 +1,21 @@
-import React from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Alert, StatusBar } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import Animated, { useSharedValue, useAnimatedStyle, withTiming } from 'react-native-reanimated';
-import { Linking } from 'react-native';
+import React from "react";
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  ScrollView,
+  Alert,
+  StatusBar,
+} from "react-native";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withTiming,
+} from "react-native-reanimated";
+import { Linking } from "react-native";
 
 const PaymentScreen = () => {
   const cardIconScale = useSharedValue(1);
@@ -26,11 +39,11 @@ const PaymentScreen = () => {
         if (supported) {
           Linking.openURL(upiUrl);
         } else {
-          Alert.alert('Error', 'No UPI apps installed on this device.');
+          Alert.alert("Error", "No UPI apps installed on this device.");
         }
       })
       .catch(() => {
-        Alert.alert('Error', 'Unable to initiate UPI payment.');
+        Alert.alert("Error", "Unable to initiate UPI payment.");
       });
   };
 
@@ -45,7 +58,12 @@ const PaymentScreen = () => {
           <Text style={styles.label}>Cardholder Name</Text>
           <View style={styles.inputWithIcon}>
             <TextInput style={styles.input} placeholder="Enter your name" />
-            <Icon name="account" size={24} color="#6A0DAD" style={styles.icon} />
+            <Icon
+              name="account"
+              size={24}
+              color="#6A0DAD"
+              style={styles.icon}
+            />
           </View>
         </View>
 
@@ -66,7 +84,12 @@ const PaymentScreen = () => {
         </View>
 
         <TouchableOpacity style={styles.payButton}>
-          <Icon name="credit-card-check" size={24} color="#fff" style={styles.buttonIcon} />
+          <Icon
+            name="credit-card-check"
+            size={24}
+            color="#fff"
+            style={styles.buttonIcon}
+          />
           <Text style={styles.buttonText}>Pay with Card</Text>
         </TouchableOpacity>
       </View>
@@ -75,7 +98,12 @@ const PaymentScreen = () => {
       <View style={styles.paymentSection}>
         <Text style={styles.sectionHeader}>UPI Payment</Text>
         <TouchableOpacity style={styles.upiButton} onPress={handleUPIPayment}>
-          <Icon name="cellphone" size={24} color="#fff" style={styles.buttonIcon} />
+          <Icon
+            name="cellphone"
+            size={24}
+            color="#fff"
+            style={styles.buttonIcon}
+          />
           <Text style={styles.buttonText}>Pay with UPI</Text>
         </TouchableOpacity>
       </View>
@@ -86,25 +114,25 @@ const PaymentScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    backgroundColor: '#EDE7F6', // Light purple background
+    alignItems: "center",
+    backgroundColor: "#EDE7F6", // Light purple background
     padding: 20,
     paddingTop: StatusBar.currentHeight,
   },
   header: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 20,
-    color: '#333',
-    textAlign: 'center',
+    color: "#333",
+    textAlign: "center",
   },
   paymentSection: {
-    width: '100%',
+    width: "100%",
     marginBottom: 30,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     padding: 20,
     borderRadius: 8,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
@@ -112,8 +140,8 @@ const styles = StyleSheet.create({
   },
   sectionHeader: {
     fontSize: 20,
-    fontWeight: '600',
-    color: '#333',
+    fontWeight: "600",
+    color: "#333",
     marginBottom: 15,
   },
   inputGroup: {
@@ -121,15 +149,15 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 14,
-    color: '#333',
+    color: "#333",
     marginBottom: 8,
   },
   inputWithIcon: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#f2f2f2',
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#f2f2f2",
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: "#ccc",
     borderRadius: 8,
     paddingVertical: 10,
     paddingHorizontal: 15,
@@ -140,22 +168,22 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     fontSize: 16,
-    color: '#333',
+    color: "#333",
   },
   payButton: {
-    backgroundColor: '#6A0DAD',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: "#6A0DAD",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
     paddingVertical: 15,
     borderRadius: 8,
     marginTop: 20,
   },
   upiButton: {
-    backgroundColor: '#6A0DAD',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: "#6A0DAD",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
     paddingVertical: 15,
     borderRadius: 8,
     marginTop: 10,
@@ -164,8 +192,8 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   buttonText: {
-    color: '#fff',
-    fontWeight: 'bold',
+    color: "#fff",
+    fontWeight: "bold",
     fontSize: 18,
   },
 });

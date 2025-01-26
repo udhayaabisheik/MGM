@@ -1,4 +1,13 @@
-import { StyleSheet, View, Button, TextInput, Text, ScrollView, Alert, SafeAreaView } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Button,
+  TextInput,
+  Text,
+  ScrollView,
+  Alert,
+  SafeAreaView,
+} from "react-native";
 import { ThemedText } from "@/components/ThemedText";
 import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
@@ -12,7 +21,11 @@ export default function SupportScreen() {
 
   const handleSubmit = () => {
     if (email && message && subject) {
-      Alert.alert("Support Message Sent", "Your support message has been sent.", [{ text: "OK" }]);
+      Alert.alert(
+        "Support Message Sent",
+        "Your support message has been sent.",
+        [{ text: "OK" }]
+      );
       // Clear fields after submission
       setEmail("");
       setSubject("");
@@ -59,14 +72,16 @@ export default function SupportScreen() {
             Q1: How do I track my order?
           </ThemedText>
           <ThemedText style={styles.faqText}>
-            A: You can track your order from the "My Orders" section in your account.
+            A: You can track your order from the "My Orders" section in your
+            account.
           </ThemedText>
 
           <ThemedText style={styles.faqText}>
             Q2: What should I do if I received a damaged product?
           </ThemedText>
           <ThemedText style={styles.faqText}>
-            A: Please contact us through the support page, and we will assist you with a replacement.
+            A: Please contact us through the support page, and we will assist
+            you with a replacement.
           </ThemedText>
         </View>
 
