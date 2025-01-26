@@ -163,7 +163,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#EDE7F6",
-    marginTop: 20,
   },
   scrollViewContent: {
     alignItems: "center",

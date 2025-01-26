@@ -6,11 +6,11 @@ import {
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
-import { StatusBar } from "expo-status-bar";
 import { useEffect, useState } from "react";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import { NotificationProvider } from "@/context/context/NotificationContext";
 import * as Notifications from "expo-notifications";
+import { StatusBar } from "react-native";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -67,8 +67,9 @@ export default function RootLayout() {
           <Stack.Screen name="NotificationScreen" />
           <Stack.Screen name="DietDetailsScreen" />
           <Stack.Screen name="+not-found" />
+          <Stack.Screen name="PaymentScreen" />
         </Stack>
-        <StatusBar style="auto" />
+        <StatusBar backgroundColor="#6A0DAD" barStyle="light-content" />
       </ThemeProvider>
     </NotificationProvider>
   );

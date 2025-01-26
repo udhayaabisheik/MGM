@@ -43,7 +43,7 @@ const SignUpScreen = () => {
 
     try {
       // Send POST request to the API
-      const response = await fetch("http://192.168.0.102:8080/users", {
+      const response = await fetch("http://192.168.0.117:8080/users", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

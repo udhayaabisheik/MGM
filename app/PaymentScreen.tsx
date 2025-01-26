@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -10,114 +10,157 @@ import {
   StatusBar,
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import Animated, {
-  useSharedValue,
-  useAnimatedStyle,
-  withTiming,
-} from "react-native-reanimated";
 import { Linking } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
-const PaymentScreen = () => {
-  const cardIconScale = useSharedValue(1);
+export default function PaymentScreen() {
+  const navigation = useNavigation();
+  const [selectedPayment, setSelectedPayment] = useState<
+    "Google Pay" | "PhonePe" | "Paytm" | "UPI ID" | null
+  >(null);
+  const [upiId, setUpiId] = useState("");
+  const [upiError, setUpiError] = useState("");
 
-  const handleCardFocus = () => {
-    cardIconScale.value = withTiming(1.5, { duration: 300 });
+  const handlePayment = (
+    method: "Google Pay" | "PhonePe" | "Paytm" | "UPI ID"
+  ) => {
+    let upiUrl = "";
+    if (method === "Google Pay") {
+      upiUrl =
+        "tez://upi/pay?pa=merchant@upi&pn=Merchant&am=500&cu=INR&tn=Payment";
+    } else if (method === "PhonePe") {
+      upiUrl =
+        "phonepe://pay?pa=merchant@upi&pn=Merchant&am=500&cu=INR&tn=Payment";
+    } else if (method === "Paytm") {
+      upiUrl =
+        "paytmmp://pay?pa=merchant@upi&pn=Merchant&am=500&cu=INR&tn=Payment";
+    } else if (method === "UPI ID" && upiId) {
+      upiUrl = `upi://pay?pa=${upiId}&pn=Merchant&am=500&cu=INR&tn=Payment`;
+    }
+
+    if (upiUrl) {
+      Linking.canOpenURL(upiUrl)
+        .then((supported) => {
+          if (supported) {
+            Linking.openURL(upiUrl);
+          } else {
+            Alert.alert("Error", "No UPI apps installed on this device.");
+          }
+        })
+        .catch(() => {
+          Alert.alert("Error", "Unable to initiate UPI payment.");
+        });
+    }
   };
 
-  const handleCardBlur = () => {
-    cardIconScale.value = withTiming(1, { duration: 300 });
-  };
-
-  const animatedStyle = useAnimatedStyle(() => ({
-    transform: [{ scale: cardIconScale.value }],
-  }));
-
-  const handleUPIPayment = () => {
-    const upiUrl = `upi://pay?pa=merchant@upi&pn=MerchantName&mc=1234&tid=txn12345&tr=orderRef123&tn=Payment%20for%20order&am=500.00&cu=INR`;
-    Linking.canOpenURL(upiUrl)
-      .then((supported) => {
-        if (supported) {
-          Linking.openURL(upiUrl);
-        } else {
-          Alert.alert("Error", "No UPI apps installed on this device.");
-        }
-      })
-      .catch(() => {
-        Alert.alert("Error", "Unable to initiate UPI payment.");
-      });
+  const handleVerifyAndPay = () => {
+    // Basic UPI ID validation
+    const upiPattern = /^[a-zA-Z0-9.\-_]{2,256}@[a-zA-Z]{2,64}$/;
+    if (upiPattern.test(upiId)) {
+      setUpiError("");
+      handlePayment("UPI ID");
+    } else {
+      setUpiError("UPI ID is invalid. Please enter a valid UPI ID.");
+    }
   };
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
+      <StatusBar backgroundColor="#6A0DAD" barStyle="light-content" />
+      {/* Back Button */}
+      <TouchableOpacity
+        style={styles.backButton}
+        onPress={() => navigation.goBack()}
+      >
+        <Icon name="arrow-left" size={28} color="#6A0DAD" />
+      </TouchableOpacity>
       <Text style={styles.header}>Make a Payment</Text>
 
-      {/* Card Payment Section */}
+      {/* Payment Options Section */}
       <View style={styles.paymentSection}>
-        <Text style={styles.sectionHeader}>Card Payment</Text>
-        <View style={styles.inputGroup}>
-          <Text style={styles.label}>Cardholder Name</Text>
-          <View style={styles.inputWithIcon}>
-            <TextInput style={styles.input} placeholder="Enter your name" />
-            <Icon
-              name="account"
-              size={24}
-              color="#6A0DAD"
-              style={styles.icon}
-            />
-          </View>
+        <Text style={styles.sectionHeader}>Select Payment Method</Text>
+        <View style={styles.radioContainer}>
+          {["Google Pay", "PhonePe", "Paytm", "UPI ID"].map((method) => (
+            <View key={method}>
+              <TouchableOpacity
+                style={styles.radioOption}
+                onPress={() =>
+                  setSelectedPayment(
+                    method as "Google Pay" | "PhonePe" | "Paytm" | "UPI ID"
+                  )
+                }
+              >
+                <Icon
+                  name={
+                    method === "Google Pay"
+                      ? "google"
+                      : method === "PhonePe"
+                      ? "cellphone"
+                      : method === "Paytm"
+                      ? "wallet"
+                      : "account"
+                  }
+                  size={24}
+                  color="#6A0DAD"
+                />
+                <Text style={styles.radioText}>{method}</Text>
+              </TouchableOpacity>
+
+              {/* Display Pay Button only for selected method */}
+              {selectedPayment === method && (
+                <View style={styles.paymentDetails}>
+                  {method === "UPI ID" && (
+                    <>
+                      <TextInput
+                        style={styles.input}
+                        placeholder="Enter UPI ID"
+                        value={upiId}
+                        onChangeText={(text) => {
+                          setUpiId(text);
+                          setUpiError("");
+                        }}
+                      />
+                      {upiError ? (
+                        <Text style={styles.errorText}>{upiError}</Text>
+                      ) : null}
+                      <TouchableOpacity
+                        style={styles.payButton}
+                        onPress={handleVerifyAndPay}
+                      >
+                        <Text style={styles.buttonText}>Verify & Pay ₹500</Text>
+                      </TouchableOpacity>
+                    </>
+                  )}
+                  {method !== "UPI ID" && (
+                    <TouchableOpacity
+                      style={styles.payButton}
+                      onPress={() => handlePayment(method)}
+                    >
+                      <Text style={styles.buttonText}>
+                        Pay with {method} - ₹500
+                      </Text>
+                    </TouchableOpacity>
+                  )}
+                </View>
+              )}
+            </View>
+          ))}
         </View>
-
-        <View style={styles.inputGroup}>
-          <Text style={styles.label}>Card Number</Text>
-          <View style={styles.inputWithIcon}>
-            <TextInput
-              style={styles.input}
-              placeholder="Enter card number"
-              keyboardType="numeric"
-              onFocus={handleCardFocus}
-              onBlur={handleCardBlur}
-            />
-            <Animated.View style={[animatedStyle]}>
-              <Icon name="credit-card-outline" size={24} color="#6A0DAD" />
-            </Animated.View>
-          </View>
-        </View>
-
-        <TouchableOpacity style={styles.payButton}>
-          <Icon
-            name="credit-card-check"
-            size={24}
-            color="#fff"
-            style={styles.buttonIcon}
-          />
-          <Text style={styles.buttonText}>Pay with Card</Text>
-        </TouchableOpacity>
-      </View>
-
-      {/* UPI Payment Section */}
-      <View style={styles.paymentSection}>
-        <Text style={styles.sectionHeader}>UPI Payment</Text>
-        <TouchableOpacity style={styles.upiButton} onPress={handleUPIPayment}>
-          <Icon
-            name="cellphone"
-            size={24}
-            color="#fff"
-            style={styles.buttonIcon}
-          />
-          <Text style={styles.buttonText}>Pay with UPI</Text>
-        </TouchableOpacity>
       </View>
     </ScrollView>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    backgroundColor: "#EDE7F6", // Light purple background
+    backgroundColor: "#EDE7F6",
     padding: 20,
-    paddingTop: StatusBar.currentHeight,
+  },
+  backButton: {
+    alignSelf: "flex-start",
+    marginBottom: 20,
   },
   header: {
     fontSize: 24,
@@ -144,15 +187,10 @@ const styles = StyleSheet.create({
     color: "#333",
     marginBottom: 15,
   },
-  inputGroup: {
-    marginBottom: 20,
+  radioContainer: {
+    flexDirection: "column",
   },
-  label: {
-    fontSize: 14,
-    color: "#333",
-    marginBottom: 8,
-  },
-  inputWithIcon: {
+  radioOption: {
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: "#f2f2f2",
@@ -161,41 +199,39 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingVertical: 10,
     paddingHorizontal: 15,
+    marginBottom: 10,
   },
-  icon: {
-    marginLeft: 10,
-  },
-  input: {
-    flex: 1,
+  radioText: {
     fontSize: 16,
     color: "#333",
+    marginLeft: 10,
+  },
+  paymentDetails: {
+    marginTop: 10,
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: "#ccc",
+    borderRadius: 8,
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    marginBottom: 10,
   },
   payButton: {
     backgroundColor: "#6A0DAD",
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    paddingVertical: 15,
+    paddingVertical: 10,
     borderRadius: 8,
-    marginTop: 20,
-  },
-  upiButton: {
-    backgroundColor: "#6A0DAD",
-    flexDirection: "row",
-    justifyContent: "center",
     alignItems: "center",
-    paddingVertical: 15,
-    borderRadius: 8,
-    marginTop: 10,
-  },
-  buttonIcon: {
-    marginRight: 10,
+    marginBottom: 10,
   },
   buttonText: {
     color: "#fff",
     fontWeight: "bold",
     fontSize: 18,
   },
+  errorText: {
+    color: "red",
+    fontSize: 14,
+    marginBottom: 10,
+  },
 });
-
-export default PaymentScreen;

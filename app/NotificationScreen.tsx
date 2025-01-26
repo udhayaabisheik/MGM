@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, Switch, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  Switch,
+  StyleSheet,
+  SafeAreaView,
+  StatusBar,
+} from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons"; // Import the icon library
 import { useNavigation } from "@react-navigation/native"; // Import useNavigation
 import AsyncStorage from "@react-native-async-storage/async-storage"; // Import AsyncStorage
@@ -52,7 +59,8 @@ export default function NotificationScreen() {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
+      <StatusBar backgroundColor="#6A0DAD" barStyle="light-content" />
       {/* Back Arrow Icon */}
       <Icon
         name="arrow-left"
@@ -77,7 +85,7 @@ export default function NotificationScreen() {
       <Text style={styles.status}>
         Notifications are {isEnabled ? "Enabled" : "Disabled"}
       </Text>
-    </View>
+    </SafeAreaView>
   );
 }
 

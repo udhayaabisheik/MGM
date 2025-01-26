@@ -7,6 +7,7 @@ import {
   ScrollView,
   Alert,
   SafeAreaView,
+  StatusBar,
 } from "react-native";
 import { ThemedText } from "@/components/ThemedText";
 import { useState } from "react";
@@ -37,6 +38,7 @@ export default function SupportScreen() {
 
   return (
     <SafeAreaView style={styles.safeAreaContainer}>
+      <StatusBar backgroundColor="#6A0DAD" barStyle="light-content" />
       <ScrollView contentContainerStyle={styles.container}>
         {/* Back Button */}
         <View style={styles.backButtonContainer}>

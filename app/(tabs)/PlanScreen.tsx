@@ -17,7 +17,7 @@ type RootStackParamList = {
   PaymentScreen: undefined;
 };
 
-const PlanScreen = () => {
+export default function PlanScreen() {
   const navigation =
     useNavigation<
       NativeStackNavigationProp<RootStackParamList, "PlanScreen">
@@ -99,15 +99,13 @@ const PlanScreen = () => {
       </Animated.View>
     </ScrollView>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
     backgroundColor: "#EDE7F6", // Light purple background
-    paddingVertical: 20,
-    paddingTop: StatusBar.currentHeight,
   },
   header: {
     fontSize: 24,
@@ -164,5 +162,3 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 });
-
-export default PlanScreen;

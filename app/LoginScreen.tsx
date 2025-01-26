@@ -6,6 +6,8 @@ import {
   TouchableOpacity,
   StyleSheet,
   Alert,
+  StatusBar,
+  SafeAreaView,
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { useRouter } from "expo-router";
@@ -24,7 +26,7 @@ const LoginScreen = () => {
       try {
         // Make the API request to verify user
         const response = await axios.get(
-          "http://192.168.0.102:8080/users/login",
+          "http://192.168.0.117:8080/users/login",
           {
             params: {
               email: email,
@@ -61,7 +63,8 @@ const LoginScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
+      <StatusBar backgroundColor="#6A0DAD" barStyle="light-content" />
       <Text style={styles.title}>Login Account</Text>
       <Icon
         name="account-circle"
@@ -99,7 +102,7 @@ const LoginScreen = () => {
       <Link href="/SignUpScreen">
         <Text style={styles.linkText}>Don't have an account? Sign Up</Text>
       </Link>
-    </View>
+    </SafeAreaView>
   );
 };
 

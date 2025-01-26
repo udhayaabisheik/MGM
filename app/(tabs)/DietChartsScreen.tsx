@@ -9,6 +9,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { useRouter } from "expo-router";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 interface DietChart {
   id: number;
@@ -17,7 +18,7 @@ interface DietChart {
   meals: string;
 }
 
-const DietChartsScreen = () => {
+export default function DietChartsScreen() {
   const [dietCharts, setDietCharts] = useState<DietChart[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const router = useRouter();
@@ -26,7 +27,7 @@ const DietChartsScreen = () => {
     // Fetch diet data from the API
     const fetchDietCharts = async () => {
       try {
-        const response = await fetch("http://192.168.0.102:8080/diets");
+        const response = await fetch("http://192.168.0.117:8080/diets");
         const data = await response.json();
         setDietCharts(data);
       } catch (error) {
@@ -69,22 +70,22 @@ const DietChartsScreen = () => {
   }
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
+      <StatusBar backgroundColor="#6A0DAD" barStyle="light-content" />
       <FlatList
         data={dietCharts}
         renderItem={renderItem}
         keyExtractor={(item) => String(item.id)}
       />
-    </View>
+    </SafeAreaView>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#EDE7F6",
     padding: 10,
-    paddingTop: StatusBar.currentHeight,
   },
   dietCard: {
     backgroundColor: "#f7f7f7",
@@ -123,5 +124,3 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
 });
-
-export default DietChartsScreen;

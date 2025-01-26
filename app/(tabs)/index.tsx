@@ -71,7 +71,6 @@ const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 10,
     paddingBottom: 20,
-    paddingTop: 20,
     backgroundColor: "#EDE7F6",
     flexGrow: 1,
   },
@@ -82,7 +81,6 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 20,
     marginLeft: -10,
     marginRight: -10,
-    marginTop: 20,
     paddingBottom: 30,
   },
   greetingText: {
