@@ -8,7 +8,7 @@ import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect, useState } from "react";
 import { useColorScheme } from "@/hooks/useColorScheme";
-import { NotificationProvider } from "@/context/context/NotificationContext";
+import { NotificationProvider } from "@/context/NotificationContext";
 import * as Notifications from "expo-notifications";
 import { StatusBar } from "react-native";
 
