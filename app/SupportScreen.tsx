@@ -40,16 +40,6 @@ export default function SupportScreen() {
     <SafeAreaView style={styles.safeAreaContainer}>
       <StatusBar backgroundColor="#6A0DAD" barStyle="light-content" />
       <ScrollView contentContainerStyle={styles.container}>
-        {/* Back Button */}
-        <View style={styles.backButtonContainer}>
-          <Icon
-            name="arrow-left" // Back arrow icon
-            size={30}
-            color="#4A148C"
-            onPress={() => navigation.goBack()} // Go back to the previous screen
-          />
-        </View>
-
         {/* Contact Options */}
         <View style={styles.contactContainer}>
           <ThemedText style={styles.sectionTitle}>Contact Us</ThemedText>

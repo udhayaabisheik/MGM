@@ -10,6 +10,7 @@ import {
 import { useRoute } from "@react-navigation/native";
 import { useRouter } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 // Define the type for the route parameters
 type EditProfileRouteParams = {
@@ -79,9 +80,7 @@ export default function EditProfileScreen() {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Edit Profile</Text>
-
+    <SafeAreaView style={styles.container}>
       {/* Name Input */}
       <TextInput
         style={styles.input}
@@ -112,7 +111,7 @@ export default function EditProfileScreen() {
       <TouchableOpacity style={styles.saveButton} onPress={handleSaveChanges}>
         <Text style={styles.saveButtonText}>Save Changes</Text>
       </TouchableOpacity>
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -121,12 +120,6 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     backgroundColor: "#ffffff",
-    marginTop: 20,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-    marginBottom: 20,
   },
   input: {
     borderWidth: 1,

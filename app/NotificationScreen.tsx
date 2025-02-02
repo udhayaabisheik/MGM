@@ -7,7 +7,6 @@ import {
   SafeAreaView,
   StatusBar,
 } from "react-native";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons"; // Import the icon library
 import { useNavigation } from "@react-navigation/native"; // Import useNavigation
 import AsyncStorage from "@react-native-async-storage/async-storage"; // Import AsyncStorage
 
@@ -53,22 +52,9 @@ export default function NotificationScreen() {
     saveNotificationSetting();
   }, [isEnabled]);
 
-  // Function to go back to the previous screen
-  const handleBack = () => {
-    navigation.goBack(); // This navigates back to the previous screen
-  };
-
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar backgroundColor="#6A0DAD" barStyle="light-content" />
-      {/* Back Arrow Icon */}
-      <Icon
-        name="arrow-left"
-        size={30}
-        color="#4A148C"
-        style={styles.backIcon}
-        onPress={handleBack} // Trigger back navigation on press
-      />
 
       <Text style={styles.title}>Notification Settings</Text>
 

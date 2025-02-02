@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import { NotificationProvider } from "@/context/NotificationContext";
 import * as Notifications from "expo-notifications";
-import { StatusBar } from "react-native";
+import { StatusBar, View } from "react-native";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -62,10 +62,54 @@ export default function RootLayout() {
             <Stack.Screen name="LoginScreen" />
           )}
           <Stack.Screen name="SignUpScreen" />
-          <Stack.Screen name="SupportScreen" />
-          <Stack.Screen name="EditProfileScreen" />
-          <Stack.Screen name="NotificationScreen" />
-          <Stack.Screen name="DietDetailsScreen" />
+          <Stack.Screen
+            name="SupportScreen"
+            options={{
+              headerTitle: "Support",
+              headerShown: true,
+              headerBackground: () => (
+                <View style={{ flex: 1, backgroundColor: "white" }} />
+              ),
+              headerTitleStyle: { color: "black" },
+              headerTintColor: "black",
+            }}
+          />
+          <Stack.Screen
+            name="EditProfileScreen"
+            options={{
+              headerTitle: "Edit Profile",
+              headerShown: true,
+              headerBackground: () => (
+                <View style={{ flex: 1, backgroundColor: "white" }} />
+              ),
+              headerTitleStyle: { color: "black" },
+              headerTintColor: "black",
+            }}
+          />
+          <Stack.Screen
+            name="NotificationScreen"
+            options={{
+              headerTitle: "Notifications",
+              headerShown: true,
+              headerBackground: () => (
+                <View style={{ flex: 1, backgroundColor: "white" }} />
+              ),
+              headerTitleStyle: { color: "black" },
+              headerTintColor: "black",
+            }}
+          />
+          <Stack.Screen
+            name="DietDetailsScreen"
+            options={{
+              headerTitle: "Diet Deatils",
+              headerShown: true,
+              headerBackground: () => (
+                <View style={{ flex: 1, backgroundColor: "white" }} />
+              ),
+              headerTitleStyle: { color: "black" },
+              headerTintColor: "black",
+            }}
+          />
           <Stack.Screen name="+not-found" />
           <Stack.Screen name="PaymentScreen" />
         </Stack>
