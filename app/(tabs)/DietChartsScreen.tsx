@@ -27,7 +27,7 @@ export default function DietChartsScreen() {
     // Fetch diet data from the API
     const fetchDietCharts = async () => {
       try {
-        const response = await fetch("http://192.168.0.117:8080/diets");
+        const response = await fetch("http://192.168.0.109:8080/diets");
         const data = await response.json();
         setDietCharts(data);
       } catch (error) {

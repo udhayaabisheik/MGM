@@ -26,7 +26,7 @@ const LoginScreen = () => {
       try {
         // Make the API request to verify user
         const response = await axios.get(
-          "http://192.168.0.117:8080/users/login",
+          "http://192.168.0.109:8080/users/login",
           {
             params: {
               email: email,
