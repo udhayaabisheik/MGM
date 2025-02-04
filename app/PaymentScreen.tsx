@@ -74,11 +74,10 @@ export default function PaymentScreen() {
       >
         <Icon name="arrow-left" size={28} color="#6A0DAD" />
       </TouchableOpacity>
-      <Text style={styles.header}>Make a Payment</Text>
 
-      {/* Payment Options Section */}
+      {/* UPI Options Section */}
       <View style={styles.paymentSection}>
-        <Text style={styles.sectionHeader}>Select Payment Method</Text>
+        <Text style={styles.sectionHeader}>UPI</Text>
         <View style={styles.radioContainer}>
           {["Google Pay", "PhonePe", "Paytm", "UPI ID"].map((method) => (
             <View key={method}>
@@ -147,6 +146,23 @@ export default function PaymentScreen() {
           ))}
         </View>
       </View>
+
+      {/* Card Options Section */}
+      <View style={styles.paymentSection}>
+        <Text style={styles.sectionHeader}>Credit/Debit Card</Text>
+        <View style={styles.cardPaymentOption}>
+          <TouchableOpacity style={styles.cardOption}>
+            <Icon name="credit-card" size={30} color="#6A0DAD" />
+            <View>
+              <Text style={styles.cardTitle}>Add credit / debit card</Text>
+              <Text style={styles.cardSubtitle}>
+                Visa, Master Card and more
+              </Text>
+            </View>
+            <Icon name="arrow-right-drop-circle" size={30} color="#6A0DAD" />
+          </TouchableOpacity>
+        </View>
+      </View>
     </ScrollView>
   );
 }
@@ -161,13 +177,6 @@ const styles = StyleSheet.create({
   backButton: {
     alignSelf: "flex-start",
     marginBottom: 20,
-  },
-  header: {
-    fontSize: 24,
-    fontWeight: "bold",
-    marginBottom: 20,
-    color: "#333",
-    textAlign: "center",
   },
   paymentSection: {
     width: "100%",
@@ -203,6 +212,7 @@ const styles = StyleSheet.create({
   },
   radioText: {
     fontSize: 16,
+    fontWeight: "500",
     color: "#333",
     marginLeft: 10,
   },
@@ -233,5 +243,30 @@ const styles = StyleSheet.create({
     color: "red",
     fontSize: 14,
     marginBottom: 10,
+  },
+  cardPaymentOption: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    backgroundColor: "#f2f2f2",
+    borderWidth: 1,
+    borderColor: "#ccc",
+    borderRadius: 8,
+  },
+  cardOption: {
+    flexDirection: "row",
+    alignItems: "center",
+    width: "100%",
+    justifyContent: "space-between",
+  },
+  cardTitle: {
+    fontSize: 16,
+    fontWeight: "500",
+    color: "#333",
+  },
+  cardSubtitle: {
+    fontSize: 14,
+    color: "#666",
   },
 });
